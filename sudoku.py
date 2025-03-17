@@ -14,6 +14,7 @@ while i < 4:
 sudoku[random.randrange(0,4)][random.randrange(0,4)] = 1
 
 changeable = []
+priority = []
 
 def filterlines(pos):
     if not (pos[0],pos[1]) in options:
@@ -51,7 +52,10 @@ def scangrid():
                 filterlines([row,col])
                 filterbox([row, col])
                 if len(options[(row,col)]) < 4:
-                    changeable.append((row,col))
+                    if len(options[(row, col)]) == 1:
+                        priority.append((row, col))
+                    else:
+                        changeable.append((row,col))
             col += 1
         row += 1
 
@@ -62,11 +66,15 @@ def additem(pos, num):
 i2 = 0
 while i2 < 15:
     changeable.clear()
-    priority = []
+    priority.clear()
     scangrid()
-    if len(changeable) != 0:
-        tochange = changeable[random.randrange(0,len(changeable))]
+    if len(priority) != 0:
+        tochange = priority[random.randrange(0,len(priority))]
         additem(tochange, options[(tochange[0],tochange[1])][0])
+    else:
+        if len(changeable) != 0:
+            tochange = changeable[random.randrange(0,len(changeable))]
+            additem(tochange, options[(tochange[0],tochange[1])][0])
     i2 += 1
 
 
