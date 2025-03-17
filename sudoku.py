@@ -31,6 +31,9 @@ def filterlines(pos):
             options[(pos[0], pos[1])].remove(sudoku[i][pos[1]])
         i += 1
 
+def filterbox(pos):
+    pass
+
 def scangrid():
     row = 0
     while row < 4:
@@ -38,6 +41,9 @@ def scangrid():
         while col < 4:
             if sudoku[row][col] == 0:
                 filterlines([row,col])
+                filterbox([row, col])
+                if len(options[(row,col)]) < 4:
+                    changeable.append((row,col))
             col += 1
         row += 1
 
@@ -45,13 +51,18 @@ def additem(pos, num):
     options.pop((pos[0], pos[1]))
     sudoku[pos[0]][pos[1]] = num
 
-
-scangrid()
-
+i2 = 0
+while i2 < 5:
+    priority = []
+    scangrid()
+    tochange = changeable[random.randrange(0,len(changeable))]
+    additem(tochange, options[(tochange[0],tochange[1])][0])
+    i2 += 1
 
 
 printmap(greenmap(bluereplace(strmap(sudoku),'0')))
 print(yellow(options))
+print(purple(changeable))
 
 # print(green("count: " + str(i)))
 timerstop(startTime)
