@@ -31,8 +31,16 @@ def filterlines(pos):
             options[(pos[0], pos[1])].remove(sudoku[i][pos[1]])
         i += 1
 
+def checklocation(row,col,pos):
+    if sudoku[row][col] in options[(pos[0], pos[1])]:
+        options[(pos[0], pos[1])].remove(sudoku[row][col])
+
 def filterbox(pos):
-    pass
+    translation = [((pos[0]%2)*-2)+1,((pos[1]%2)*-2)+1]
+    # print(pos, translation, [pos[0]+translation[0],pos[1]+translation[1]])
+    checklocation(pos[0] + translation[0], pos[1], pos)
+    checklocation(pos[0], pos[1] + translation[1], pos)
+    checklocation(pos[0] + translation[0], pos[1] + translation[1], pos)
 
 def scangrid():
     row = 0
@@ -52,11 +60,13 @@ def additem(pos, num):
     sudoku[pos[0]][pos[1]] = num
 
 i2 = 0
-while i2 < 5:
+while i2 < 15:
+    changeable.clear()
     priority = []
     scangrid()
-    tochange = changeable[random.randrange(0,len(changeable))]
-    additem(tochange, options[(tochange[0],tochange[1])][0])
+    if len(changeable) != 0:
+        tochange = changeable[random.randrange(0,len(changeable))]
+        additem(tochange, options[(tochange[0],tochange[1])][0])
     i2 += 1
 
 
