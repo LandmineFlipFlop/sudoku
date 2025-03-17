@@ -122,6 +122,13 @@ def printmap(map):
     for row in map:
         print("".join(row))
 
+def strmap(map):
+    revised = []
+    for row in map:
+        revised.append([])
+        for col in row:
+            revised[len(revised) - 1].append(str(col))
+    return revised
 def bluemap(map):
     revised = []
     for row in map:
