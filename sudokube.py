@@ -45,7 +45,6 @@ def checklocation(row,col,layer,pos):
 
 def filterbox(pos):
     translation = [((pos[0]%2)*-2)+1, ((pos[1]%2)*-2)+1, ((pos[2]%2)*-2)+1]
-    # print(pos, translation, [pos[0]+translation[0],pos[1]+translation[1]])
     checklocation(pos[0] + translation[0], pos[1], pos[2], pos)
     checklocation(pos[0], pos[1] + translation[1], pos[2], pos)
     checklocation(pos[0] + translation[0], pos[1] + translation[1], pos[2], pos)
@@ -94,6 +93,14 @@ while i2 < 511:
             additem(tochange, options[(tochange[0],tochange[1],tochange[2])][0])
     i2 += 1
 
+    for layer in sudokube:
+        printmap(greenmap(redreplace(strmap(layer), '0')))
+        print()
+    print(yellow(round((i2/512)*100))+'%')
+    print(blue('----------------------------------------'))
+
+
+
 for layer in sudokube:
     printmap(greenmap(bluereplace(strmap(layer), '0')))
     print()
@@ -101,5 +108,4 @@ for layer in sudokube:
 print(yellow(options))
 print(purple(changeable))
 
-# print(green("count: " + str(i)))
 timerstop(startTime)
