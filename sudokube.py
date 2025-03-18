@@ -79,24 +79,41 @@ def additem(pos, num):
     options.pop((pos[0], pos[1], pos[2]))
     sudokube[pos[0]][pos[1]][pos[2]] = num
 
+
+def findshortest():
+    i = 0
+    shortest = 8
+    while i < len(changeable) - 1:
+        if len(options[changeable[i]]) < shortest:
+            if len(options[changeable[i]]) != 0:
+                shortest = len(options[changeable[i]])
+        i += 1
+
+    for item in changeable:
+        if len(options[item]) == shortest:
+            priority.append(item)
+
 i2 = 0
 while i2 < 511:
     changeable.clear()
     priority.clear()
     scangrid()
+    findshortest()
+    # print(changeable)
     if len(priority) != 0:
         tochange = priority[random.randrange(0,len(priority))]
         additem(tochange, options[(tochange[0],tochange[1],tochange[2])][0])
     else:
         if len(changeable) != 0:
-            tochange = changeable[random.randrange(0,len(changeable))]
-            additem(tochange, options[(tochange[0],tochange[1],tochange[2])][0])
+            tochange = changeable[random.randrange(0,len(changeable) )]
+            # tochange = findshortest()
+            additem(tochange, options[ (tochange[0],tochange[1],tochange[2]) ][0])
     i2 += 1
 
     for layer in sudokube:
         printmap(greenmap(redreplace(strmap(layer), '0')))
         print()
-    print(yellow(round((i2/512)*100))+'%')
+    print(yellow(round((i2/510)*100))+'%')
     print(blue('----------------------------------------'))
 
 
