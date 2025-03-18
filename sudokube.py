@@ -113,7 +113,7 @@ while i2 < 511:
     for layer in sudokube:
         printmap(greenmap(redreplace(strmap(layer), '0')))
         print()
-    print(yellow(round((i2/510)*100))+'%')
+    print(yellow(round(((i2 + 2)/512)*100))+'%')
     print(blue('----------------------------------------'))
 
 
