@@ -19,6 +19,7 @@ sudokube[random.randrange(0, 8)][random.randrange(0, 8)][random.randrange(0, 8)]
 changeable = []
 priority = []
 
+
 def filterlines(pos):
     if not (pos[0],pos[1],pos[2]) in options:
         if sudokube[pos[0]][pos[1]][pos[2]] == 0:
@@ -39,9 +40,11 @@ def filterlines(pos):
             options[(pos[0], pos[1], pos[2])].remove(sudokube[i][pos[1]][pos[2]])
         i += 1
 
+
 def checklocation(row,col,layer,pos):
     if sudokube[row][col][layer] in options[(pos[0], pos[1], pos[2])]:
         options[(pos[0], pos[1], pos[2])].remove(sudokube[row][col][layer])
+
 
 def filterbox(pos):
     translation = [((pos[0]%2)*-2)+1, ((pos[1]%2)*-2)+1, ((pos[2]%2)*-2)+1]
@@ -109,18 +112,17 @@ while i2 < 511:
             # tochange = findshortest()
             additem(tochange, options[ (tochange[0],tochange[1],tochange[2]) ][0])
     i2 += 1
-
     for layer in sudokube:
         printmap(greenmap(redreplace(strmap(layer), '0')))
         print()
     print(yellow(round(((i2 + 2)/512)*100))+'%')
-    print(blue('----------------------------------------'))
-
+    print(blue('------------------------'))
 
 
 for layer in sudokube:
     printmap(greenmap(bluereplace(strmap(layer), '0')))
     print()
+
 
 print(yellow(options))
 print(purple(changeable))
